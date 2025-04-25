@@ -1,0 +1,22 @@
+name: Manual Build
+
+# This workflow is triggered by manual click
+on:
+  workflow_dispatch:  # Trigger workflow from GitHub UI
+
+jobs:
+  build:
+    name: NickelMenu
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        submodules: true
+    - name: Build
+      run: make all koboroot  # This is the build command that was in the original workflow
+    - name: Upload
+      uses: actions/upload-artifact@v4
+      with:
+        name: NickelMenu
+        path: KoboRoot.tgz  # This is the artifact you want to upload
